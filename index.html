@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/main.css">
+   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+   <title>3D Cube</title>
+</head>
+<body>
+   <div id="root">
+   </div>
+
+      <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+       "use strict";
+const domContainer = document.querySelector('#root');
+
+
+class Cube extends React.Component {
+
+   render() {
+      return (
+      <div class="scene">
+         <div class="cube">
+           <div class="cube__face cube__face--front">front</div>
+           <div class="cube__face cube__face--back">back</div>
+           <div class="cube__face cube__face--right">right</div>
+           <div class="cube__face cube__face--left">left</div>
+           <div class="cube__face cube__face--top">top</div>
+           <div class="cube__face cube__face--bottom">bottom</div>
+         </div>
+       </div>
+      );
+   }
+}
+
+
+ReactDOM.render(<Cube/>, domContainer);
+
+
+      let startX, startY;
+      let cubeElem = document.querySelector(".cube")
+      cubeElem.style.transform = `rotateX(0deg) rotateY(0deg)`;
+
+
+            document.querySelector('body').addEventListener("mousedown", function(e){
+               startX = e.clientX;
+               startY = e.clientY;
+               document.querySelector('body').addEventListener("mousemove", print=(e)=>{
+                  // let trans = cubeElem.style.transform;
+                  // trans = trans.split(" ")
+                  // let prevX = parseInt(trans[0].match(/(-[1-9]|[0-9])(\d+(?=deg)|(?=deg))/)[0]);
+                  // let prevY = parseInt(trans[1].match(/(-[1-9]|[0-9])(\d+(?=deg)|(?=deg))/)[0]);
+                  let diffX = e.clientX - startX;
+                  let diffY = -(e.clientY - startY);
+                  // let gradNum = 180;
+                  // let newX = prevX + diffX;
+                  // if(newX >= gradNum){
+                  //    newX = gradNum - newX
+                  // } else if(newX <= -gradNum){
+                  //    newX = gradNum + newX
+                  // }
+                  // let newY = prevY + diffY;
+                  // if(newY >= gradNum){
+                  //    newY = gradNum - newY
+                  // } else if(newY <= -gradNum){
+                  //    newY = gradNum + newY
+                  // }
+                  // console.log(newX + ' ' + newY);
+                  cubeElem.style.transform = `rotateX(${diffY}deg) rotateY(${diffX}deg)`;
+               });
+             });
+
+             document.querySelector('body').addEventListener("mouseup", function(e){
+               document.querySelector('body').removeEventListener("mousemove", print);
+             });
+
+
+
+
+document.querySelector('body').addEventListener("touchstart", function(e){
+               startX = parseInt(e.touches[0].clientX)
+               startY = parseInt(e.touches[0].clientY)
+               document.querySelector('body').addEventListener("touchmove", print=(e)=>{
+                  // let trans = cubeElem.style.transform;
+                  // trans = trans.split(" ")
+                  // let prevX = parseInt(trans[0].match(/(-[1-9]|[0-9])(\d+(?=deg)|(?=deg))/)[0]);
+                  // let prevY = parseInt(trans[1].match(/(-[1-9]|[0-9])(\d+(?=deg)|(?=deg))/)[0]);
+                  let x = parseInt(e.touches[0].clientX)
+                  let y = parseInt(e.touches[0].clientY)
+                  let diffX = x - startX;
+                  let diffY = -(y - startY);
+                  // let gradNum = 180;
+                  // let newX = prevX + diffX;
+                  // if(newX >= gradNum){
+                  //    newX = gradNum - newX
+                  // } else if(newX <= -gradNum){
+                  //    newX = gradNum + newX
+                  // }
+                  // let newY = prevY + diffY;
+                  // if(newY >= gradNum){
+                  //    newY = gradNum - newY
+                  // } else if(newY <= -gradNum){
+                  //    newY = gradNum + newY
+                  // }
+                  // console.log(newX + ' ' + newY);
+                  cubeElem.style.transform = `rotateX(${diffY}deg) rotateY(${diffX}deg)`;
+               });
+             });
+   </script>
+      
+</body>
+
+
+</html>
